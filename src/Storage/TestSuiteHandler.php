@@ -33,8 +33,8 @@ class TestSuiteHandler extends StorageHandler
                       'w'
         );
 
-        foreach ($partition['tests'] as $test) {
-            fputcsv($file, [$test]);
+        foreach ($partition as $name => $time) {
+            fputcsv($file, [$name, $time]);
         }
 
         fclose($file);
