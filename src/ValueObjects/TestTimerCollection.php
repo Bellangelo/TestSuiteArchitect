@@ -25,9 +25,10 @@ class TestTimerCollection implements Iterator
         return current($this->testTimers);
     }
 
-    public function next(): TestTimer
+    public function next(): ?TestTimer
     {
-        return next($this->testTimers);
+        $value = next($this->testTimers);
+        return $value ?: null;
     }
 
     public function key(): string
