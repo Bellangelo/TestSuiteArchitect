@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bellangelo\TestSuiteArchitect;
 
+use Bellangelo\TestSuiteArchitect\Storage\TimeReportingHandler;
 use Bellangelo\TestSuiteArchitect\ValueObjects\TestTimer;
 use Bellangelo\TestSuiteArchitect\ValueObjects\TestTimerCollection;
 use RuntimeException;
@@ -31,6 +32,11 @@ class TimeReporting
         }
 
         $testTimer->setEndTime(microtime(true));
+    }
+
+    public function storeReport(): void
+    {
+        (new TimeReportingHandler())->writeReport($this->getTestTimerCollection());
     }
 
     private function getTestTimerCollection(): TestTimerCollection
