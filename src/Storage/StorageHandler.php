@@ -29,6 +29,6 @@ abstract class StorageHandler
 
     private function getAbsoluteFolder(string $folderName): string
     {
-        return __DIR__ . './../../../../' . $folderName;
+        return __DIR__ . '/../../../../../' . $folderName;
     }
 }
