@@ -33,7 +33,7 @@ class TimeReportingHandler extends StorageHandler
         $data = [];
 
         while (($line = fgetcsv($file)) !== false) {
-            $data[] = $line;
+            $data[$line[0]] = (float) $line[1];
         }
 
         fclose($file);
