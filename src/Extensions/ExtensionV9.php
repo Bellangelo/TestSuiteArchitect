@@ -14,15 +14,11 @@ class ExtensionV9 extends Extension implements TestListener
 
     public function startTestSuite(TestSuite $suite): void
     {
-        $this->storeStartTime($suite->getName());
+        $this->suiteStarted($suite);
     }
 
     public function endTestSuite(TestSuite $suite): void
     {
-        $this->incrementSuitesCounter();
-
-        $this->storeEndTime($suite->getName(), microtime(true));
-
-        $this->storeReport();
+        $this->suiteEnded($suite);
     }
 }
