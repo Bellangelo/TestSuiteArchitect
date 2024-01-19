@@ -12,15 +12,15 @@ abstract class StorageHandler
 
     public function __construct()
     {
-        $this->initializeFolder();
+        $this->initializeFolder(
+            $this->getAbsoluteFolder(self::CONFIGURATION_FOLDER_NAME)
+        );
     }
 
-    protected function initializeFolder(): void
+    protected function initializeFolder(string $folder): void
     {
-        $absolutePath = $this->getAbsoluteFolder(self::CONFIGURATION_FOLDER_NAME);
-
-        if (!file_exists($absolutePath)) {
-            if (!mkdir($absolutePath)) {
+        if (!file_exists($folder)) {
+            if (!mkdir($folder)) {
                 throw new RuntimeException('Unable to create configuration folder');
             }
         }

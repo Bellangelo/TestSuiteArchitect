@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bellangelo\TestSuiteArchitect\Commands\Partition;
 
+use Bellangelo\TestSuiteArchitect\Storage\TestSuiteHandler;
 use Bellangelo\TestSuiteArchitect\Storage\TimeReportingHandler;
 use Bellangelo\TestSuiteArchitect\Partitions\TimeBasedPartitions;
 use Minicli\Command\CommandController;
@@ -24,10 +25,8 @@ class DefaultController extends CommandController
             $data = (new TimeReportingHandler())->readReport();
 
             $partitions = (new TimeBasedPartitions($data))->createPartitions($numberOfPartitions);
+            (new TestSuiteHandler())->writePartitions($partitions);
 
-            foreach ($partitions as $partition) {
-                echo implode(',', $partition) . PHP_EOL;
-            }
         } catch (Throwable $e) {
             echo $e->getMessage() . PHP_EOL;
             return;
