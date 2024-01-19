@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Bellangelo\TestSuiteArchitect\Commands\Partition;
 
 use Bellangelo\TestSuiteArchitect\Storage\TimeReportingHandler;
-use Bellangelo\TestSuiteArchitect\TimeBasedPartitions;
+use Bellangelo\TestSuiteArchitect\Partitions\TimeBasedPartitions;
 use Minicli\Command\CommandController;
 use Throwable;
 
