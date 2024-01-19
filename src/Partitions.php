@@ -6,8 +6,6 @@ namespace Bellangelo\TestSuiteArchitect;
 
 use InvalidArgumentException;
 
-use function DeepCopy\deep_copy;
-
 class Partitions
 {
     private array $data = [];
@@ -25,8 +23,8 @@ class Partitions
         $data = $this->getData();
 
         // Initialize the parts
-        $parts = array_fill(0, $x, array());
-        $sums = array_fill(0, $x, 0.0);
+        $parts = array_fill(0, $numberOfPartitions, array());
+        $sums = array_fill(0, $numberOfPartitions, 0.0);
 
         // Sort the array in descending order
         rsort($data);
