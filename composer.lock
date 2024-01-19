@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2ff33d1c4594ffebc0820786aa50b6db",
+    "content-hash": "3c001739d4c74e2a23867ebbae514ea2",
     "packages": [
         {
             "name": "doctrine/instantiator",
@@ -75,6 +75,60 @@
                 }
             ],
             "time": "2022-12-30T00:15:36+00:00"
+        },
+        {
+            "name": "minicli/minicli",
+            "version": "2.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/minicli/minicli.git",
+                "reference": "7a136614949b47d716769a037a1107e414bc4f38"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/minicli/minicli/zipball/7a136614949b47d716769a037a1107e414bc4f38",
+                "reference": "7a136614949b47d716769a037a1107e414bc4f38",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.3"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.16",
+                "pestphp/pest": "^1.0",
+                "phpunit/phpunit": "^9.0"
+            },
+            "suggest": {
+                "ext-readline": "For obtaining user input"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Assets\\": "tests/Assets",
+                    "Minicli\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Experimental micro CLI framework for PHP",
+            "homepage": "https://github.com/minicli/minicli",
+            "keywords": [
+                "cli",
+                "command-line"
+            ],
+            "support": {
+                "issues": "https://github.com/minicli/minicli/issues",
+                "source": "https://github.com/minicli/minicli/tree/2.2.2"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/erikaheidi",
+                    "type": "github"
+                }
+            ],
+            "time": "2021-10-30T07:30:03+00:00"
         },
         {
             "name": "myclabs/deep-copy",
