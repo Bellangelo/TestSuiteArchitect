@@ -70,7 +70,8 @@ class TestTimer
     {
         return [
             $this->getName(),
-            $this->getElapsedTime(),
+            $this->getStartTime(),
+            $this->getEndTime(),
         ];
     }
 }

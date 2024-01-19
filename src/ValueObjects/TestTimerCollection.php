@@ -45,4 +45,9 @@ class TestTimerCollection implements Iterator
     {
         reset($this->testTimers);
     }
+
+    public function toArray(): array
+    {
+        return $this->testTimers;
+    }
 }

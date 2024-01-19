@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bellangelo\TestSuiteArchitect\Storage;
 
+use Bellangelo\TestSuiteArchitect\ValueObjects\TestTimer;
 use Bellangelo\TestSuiteArchitect\ValueObjects\TestTimerCollection;
 use RuntimeException;
 
@@ -22,7 +23,7 @@ class TimeReportingHandler extends StorageHandler
         fclose($file);
     }
 
-    public function readReport(): array
+    public function readReport(): TestTimerCollection
     {
         $file = fopen($this->getAbsolutePath(self::FILE_NAME), 'r');
 
@@ -30,14 +31,20 @@ class TimeReportingHandler extends StorageHandler
             throw new RuntimeException('Please generate a report first.');
         }
 
-        $data = [];
+        $collection = new TestTimerCollection();
 
         while (($line = fgetcsv($file)) !== false) {
-            $data[$line[0]] = (float) $line[1];
+            $collection->add(
+                new TestTimer(
+                    $line[0],
+                    (float) $line[1],
+                    (float) $line[2]
+                )
+            );
         }
 
         fclose($file);
 
-        return $data;
+        return $collection;
     }
 }

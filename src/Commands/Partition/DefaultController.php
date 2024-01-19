@@ -22,9 +22,9 @@ class DefaultController extends CommandController
         }
 
         try {
-            $data = (new TimeReportingHandler())->readReport();
+            $collection = (new TimeReportingHandler())->readReport();
 
-            $partitions = (new TimeBasedPartitions($data))->createPartitions($numberOfPartitions);
+            $partitions = (new TimeBasedPartitions($collection))->createPartitions($numberOfPartitions);
             (new TestSuiteHandler())->writePartitions($partitions);
 
         } catch (Throwable $e) {
