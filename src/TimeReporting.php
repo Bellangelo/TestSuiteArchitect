@@ -6,11 +6,9 @@ namespace Bellangelo\TestSuiteArchitect;
 
 use Bellangelo\TestSuiteArchitect\ValueObjects\TestTimer;
 use Bellangelo\TestSuiteArchitect\ValueObjects\TestTimerCollection;
-use PHPUnit\Runner\AfterTestHook;
-use PHPUnit\Runner\BeforeTestHook;
 use RuntimeException;
 
-class TimeReportingTestListener implements BeforeTestHook, AfterTestHook
+class TimeReporting
 {
     private TestTimerCollection $testTimerCollection;
 
@@ -19,12 +17,12 @@ class TimeReportingTestListener implements BeforeTestHook, AfterTestHook
         $this->testTimerCollection = new TestTimerCollection();
     }
 
-    public function executeBeforeTest(string $test): void
+    public function storeStartTime(string $test): void
     {
         $this->storeTest($test);
     }
 
-    public function executeAfterTest(string $test, float $time): void
+    public function storeEndTime(string $test, float $time): void
     {
         $testTimer = $this->getTestTimerCollection()->get($test);
 
