@@ -23,8 +23,6 @@ class ExtensionV9 extends Extension implements TestListener
 
         $this->storeEndTime($suite->getName(), microtime(true));
 
-        if ($this->isLastSuite($suite->count())) {
-            $this->storeReport();
-        }
+        $this->storeReport();
     }
 }

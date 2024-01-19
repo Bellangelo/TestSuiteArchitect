@@ -14,9 +14,4 @@ abstract class Extension extends TimeReporting
     {
         self::$suitesCounter++;
     }
-
-    protected function isLastSuite(int $totalSuites): bool
-    {
-        return self::$suitesCounter === $totalSuites;
-    }
 }
