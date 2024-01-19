@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Bellangelo\TestSuiteArchitect\Storage;
 
+use RuntimeException;
+
 abstract class StorageHandler
 {
     protected const CONFIGURATION_FOLDER_NAME = '.test-suite-architect';
@@ -18,7 +20,9 @@ abstract class StorageHandler
         $absolutePath = $this->getAbsoluteFolder(self::CONFIGURATION_FOLDER_NAME);
 
         if (!file_exists($absolutePath)) {
-            mkdir($absolutePath);
+            if (!mkdir($absolutePath)) {
+                throw new RuntimeException('Unable to create configuration folder');
+            }
         }
     }
 
