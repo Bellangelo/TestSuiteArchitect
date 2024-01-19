@@ -6,14 +6,8 @@ namespace Bellangelo\TestSuiteArchitect;
 
 use InvalidArgumentException;
 
-class Partitions
+class TimeBasedPartitions extends Partitions
 {
-    private array $data = [];
-
-    public function __construct(array $data) {
-        $this->setData($data);
-    }
-
     public function createPartitions(int $numberOfPartitions): array
     {
         if ($numberOfPartitions <= 0) {
@@ -59,15 +53,5 @@ class Partitions
         } while ($redistributed);
 
         return $parts;
-    }
-
-    private function getData(): array
-    {
-        return $this->data;
-    }
-
-    private function setData(array $data): void
-    {
-        $this->data = $data;
     }
 }
