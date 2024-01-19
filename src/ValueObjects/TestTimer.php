@@ -65,4 +65,12 @@ class TestTimer
 
         return $this->getEndTime() - $this->getStartTime();
     }
+
+    public function toCsvArray(): array
+    {
+        return [
+            $this->getName(),
+            $this->getElapsedTime(),
+        ];
+    }
 }
