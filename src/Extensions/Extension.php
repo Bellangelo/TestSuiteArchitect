@@ -6,6 +6,7 @@ namespace Bellangelo\TestSuiteArchitect\Extensions;
 
 use Bellangelo\TestSuiteArchitect\TimeReporting;
 use PHPUnit\Framework\TestSuite;
+use ReflectionClass;
 
 abstract class Extension extends TimeReporting
 {
@@ -24,7 +25,7 @@ abstract class Extension extends TimeReporting
 
         $this->incrementSuitesCounter();
 
-        $this->storeStartTime($suite->getName());
+        $this->storeStartTime($this->extractFilenameFromClass($suite->getName()));
     }
 
     protected function suiteEnded(TestSuite $suite): void
@@ -33,8 +34,18 @@ abstract class Extension extends TimeReporting
             return;
         }
 
-        $this->storeEndTime($suite->getName(), microtime(true));
+        $this->storeEndTime(
+            $this->extractFilenameFromClass($suite->getName()),
+            microtime(true)
+        );
 
         $this->storeReport();
+    }
+
+    private function extractFilenameFromClass(string $className): string
+    {
+        $class = new ReflectionClass($className);
+
+        return $class->getFileName();
     }
 }
