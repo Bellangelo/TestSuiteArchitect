@@ -31,7 +31,7 @@ abstract class StorageHandler
         return $this->getAbsoluteFolder(self::CONFIGURATION_FOLDER_NAME) . '/' . $fileName;
     }
 
-    private function getAbsoluteFolder(string $folderName): string
+    public static function getAbsoluteFolder(string $folderName): string
     {
         return __DIR__ . '/../../../../../' . $folderName;
     }
