@@ -33,13 +33,9 @@ class TestSuiteHandler extends StorageHandler
     {
         $domtree = new DOMDocument('1.0', 'UTF-8');
 
-        $xmlRoot = $domtree->createElement('xml');
-        $xmlRoot = $domtree->appendChild($xmlRoot);
-
-
         $testSuite = $domtree->createElement('testsuite');
         $testSuite->setAttribute('name', 'test-suite-' . $index);
-        $testSuite = $xmlRoot->appendChild($testSuite);
+        $testSuite = $domtree->appendChild($testSuite);
 
         /** @var TestTimer $test */
         foreach ($partition as $test) {
