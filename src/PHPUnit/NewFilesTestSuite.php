@@ -13,10 +13,10 @@ use RecursiveIteratorIterator;
 
 class NewFilesTestSuite extends TestSuite
 {
-    protected function findNewFiles(): array
+    protected static function findNewFiles(): array
     {
         $filesInReport = (new TimeReportingHandler())->readReport();
-        $testFiles = $this->getTestFiles();
+        $testFiles = self::getTestFiles();
         $newFiles = [];
 
         foreach ($testFiles as $file) {
@@ -28,7 +28,7 @@ class NewFilesTestSuite extends TestSuite
         return $newFiles;
     }
 
-    protected function getTestFiles(): array
+    protected static function getTestFiles(): array
     {
         $testsDirectory = StorageHandler::getAbsoluteFolder('tests');
 
