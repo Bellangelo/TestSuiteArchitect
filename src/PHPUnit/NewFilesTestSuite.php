@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bellangelo\TestSuiteArchitect;
+namespace Bellangelo\TestSuiteArchitect\PHPUnit;
 
 use Bellangelo\TestSuiteArchitect\Storage\StorageHandler;
 use Bellangelo\TestSuiteArchitect\Storage\TimeReportingHandler;
