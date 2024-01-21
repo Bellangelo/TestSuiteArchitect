@@ -55,7 +55,7 @@ abstract class NewFilesTestSuite extends TestSuite
     {
         $testsDirectory = StorageHandler::getAbsoluteFolder('tests');
 
-        if (is_dir($testsDirectory)) {
+        if (!is_dir($testsDirectory)) {
             throw new RuntimeException('Cannot find tests directory');
         }
 
