@@ -14,7 +14,7 @@ class LoadBalancingPartitions extends Partitions
         $totalElements = count($array);
         $result = [];
 
-        $basePartSize = floor($totalElements / $numberOfPartitions);
+        $basePartSize = (int) floor($totalElements / $numberOfPartitions);
         // Extra items to distribute
         $extraElements = $totalElements % $numberOfPartitions;
 
