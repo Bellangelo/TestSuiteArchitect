@@ -25,7 +25,7 @@ class DefaultController extends CommandController
             $collection = (new TimeReportingHandler())->readReport();
 
             $partitions = (new TimeBasedPartitions($collection))->createPartitions($numberOfPartitions);
-            (new TestSuiteHandler())->writePartitions($partitions);
+            (new TestSuiteHandler())->writeTestSuites($partitions);
 
         } catch (Throwable $e) {
             echo $e->getMessage() . PHP_EOL;
