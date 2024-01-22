@@ -34,7 +34,7 @@ abstract class StorageHandler
 
     public static function getAbsoluteFolder(string $folderName): string
     {
-        return __DIR__ . '/../../../../../' . $folderName;
+        return realpath(__DIR__ . '/../../../../../' . $folderName);
     }
 
     public static function getRelativePathBasedOnTests(string $filename): string
