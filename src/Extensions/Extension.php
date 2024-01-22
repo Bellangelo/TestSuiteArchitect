@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Bellangelo\TestSuiteArchitect\Extensions;
 
-use Bellangelo\TestSuiteArchitect\PHPUnit\Configuration;
+use Bellangelo\TestSuiteArchitect\Storage\StorageHandler;
 use Bellangelo\TestSuiteArchitect\TimeReporting;
 use PHPUnit\Framework\TestSuite;
 use ReflectionClass;
-use RuntimeException;
 
 abstract class Extension extends TimeReporting
 {
@@ -27,7 +26,9 @@ abstract class Extension extends TimeReporting
 
         $this->incrementSuitesCounter();
 
-        $this->storeStartTime($this->extractFilenameFromClass($suite->getName()));
+        $file = $this->extractFilenameFromClass($suite->getName());
+
+        $this->storeStartTime(StorageHandler::convertToRelativePath($file));
     }
 
     protected function suiteEnded(TestSuite $suite): void
@@ -36,8 +37,10 @@ abstract class Extension extends TimeReporting
             return;
         }
 
+        $file = $this->extractFilenameFromClass($suite->getName());
+
         $this->storeEndTime(
-            $this->extractFilenameFromClass($suite->getName()),
+            StorageHandler::convertToRelativePath($file),
             microtime(true)
         );
 
@@ -46,15 +49,7 @@ abstract class Extension extends TimeReporting
 
     private function extractFilenameFromClass(string $className): string
     {
-        $workingDirectory = Configuration::getWorkingDirectory();
-
         $class = new ReflectionClass($className);
-        $filename = $class->getFileName();
-
-        if (strpos($filename, $workingDirectory) === false) {
-            throw new RuntimeException('Test exists in a unexpected directory');
-        }
-
-        return substr($filename, strlen($workingDirectory));
+        return $class->getFileName();
     }
 }

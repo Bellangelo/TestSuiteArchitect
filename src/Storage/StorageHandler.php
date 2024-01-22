@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bellangelo\TestSuiteArchitect\Storage;
 
+use Bellangelo\TestSuiteArchitect\PHPUnit\Configuration;
 use RuntimeException;
 
 abstract class StorageHandler
@@ -34,5 +35,16 @@ abstract class StorageHandler
     public static function getAbsoluteFolder(string $folderName): string
     {
         return __DIR__ . '/../../../../../' . $folderName;
+    }
+
+    public static function convertToRelativePath(string $filename): string
+    {
+        $workingDirectory = Configuration::getWorkingDirectory();
+
+        if (strpos($filename, $workingDirectory) === false) {
+            throw new RuntimeException('Test exists in a unexpected directory');
+        }
+
+        return substr($filename, strlen($workingDirectory));
     }
 }
