@@ -37,7 +37,7 @@ abstract class StorageHandler
         return __DIR__ . '/../../../../../' . $folderName;
     }
 
-    public static function convertToRelativePath(string $filename): string
+    public static function getRelativePathBasedOnTests(string $filename): string
     {
         $workingDirectory = Configuration::getWorkingDirectory();
 

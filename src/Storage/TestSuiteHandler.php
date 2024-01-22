@@ -71,7 +71,7 @@ class TestSuiteHandler extends StorageHandler
 
         // Add custom test suite for new files.
         $file = $domtree->createElement('file');
-        $file->nodeValue = StorageHandler::convertToRelativePath(
+        $file->nodeValue = StorageHandler::getRelativePathBasedOnTests(
             $this->getAbsolutePath(
                 self::TEST_SUITES_FOLDER . '/' . $this->getFilenameForNewFilesSuite($index)
             )

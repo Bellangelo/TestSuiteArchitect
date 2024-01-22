@@ -66,7 +66,7 @@ abstract class NewFilesTestSuite extends TestSuite
             // Check if the file ends with 'Test.php'
             if (substr($file->getFilename(), -8) === 'Test.php') {
                 // Add to the array
-                $tests[] = StorageHandler::convertToRelativePath($file->getPathname());
+                $tests[] = StorageHandler::getRelativePathBasedOnTests($file->getPathname());
             }
         }
 

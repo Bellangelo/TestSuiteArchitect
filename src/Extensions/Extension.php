@@ -28,7 +28,7 @@ abstract class Extension extends TimeReporting
 
         $file = $this->extractFilenameFromClass($suite->getName());
 
-        $this->storeStartTime(StorageHandler::convertToRelativePath($file));
+        $this->storeStartTime(StorageHandler::getRelativePathBasedOnTests($file));
     }
 
     protected function suiteEnded(TestSuite $suite): void
@@ -40,7 +40,7 @@ abstract class Extension extends TimeReporting
         $file = $this->extractFilenameFromClass($suite->getName());
 
         $this->storeEndTime(
-            StorageHandler::convertToRelativePath($file),
+            StorageHandler::getRelativePathBasedOnTests($file),
             microtime(true)
         );
 
