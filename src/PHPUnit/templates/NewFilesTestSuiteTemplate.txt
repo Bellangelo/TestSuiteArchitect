@@ -8,7 +8,7 @@ class NewFilesTestSuite{{partition}} extends NewFilesTestSuite
 {
     public static function suite()
     {
-        $suite = new TestSuite();
+        $suite = new self();
 
         self::addNewTestsForCurrentPartition($suite, {{numberOfPartitions}}, {{partition}});
 
