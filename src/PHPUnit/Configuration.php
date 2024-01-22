@@ -13,6 +13,11 @@ class Configuration
         return $configurationDirectory ?? getcwd();
     }
 
+    public static function getTestsDirectory(): string
+    {
+        return self::getWorkingDirectory() . '/tests';
+    }
+
     public static function getPHPUnitConfigurationDirectory(): ?string
     {
         global $argv;

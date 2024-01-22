@@ -53,7 +53,7 @@ abstract class NewFilesTestSuite extends TestSuite
 
     protected static function getTestFiles(): array
     {
-        $testsDirectory = StorageHandler::getAbsoluteFolder('tests');
+        $testsDirectory = Configuration::getTestsDirectory();
 
         if (!is_dir($testsDirectory)) {
             throw new RuntimeException('Cannot find tests directory');
