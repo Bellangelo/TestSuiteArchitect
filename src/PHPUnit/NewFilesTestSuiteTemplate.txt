@@ -1,0 +1,17 @@
+<?php
+
+declare(strict_types=1);
+
+use Bellangelo\TestSuiteArchitect\PHPUnit\NewFilesTestSuite;
+
+class NewFilesTestSuite{partition} extends NewFilesTestSuite
+{
+    public static function suite()
+    {
+        $suite = new TestSuite();
+
+        self::addNewTestsForCurrentPartition($suite, {numberOfPartitions}, {partition});
+
+        return $suite;
+    }
+}

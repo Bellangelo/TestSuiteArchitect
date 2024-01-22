@@ -24,9 +24,34 @@ class TestSuiteHandler extends StorageHandler
     {
         $this->deleteOldTestSuites();
 
+        $numberOfPartitions = count($partitions);
+
         foreach ($partitions as $index => $partition) {
-            $this->writeTestSuite($index+1, $partition);
+            $normalisedIndex = $index + 1;
+            $this->writeTestSuiteForNewFiles($numberOfPartitions, $normalisedIndex);
+            $this->writeTestSuite($normalisedIndex, $partition);
         }
+    }
+
+    private function writeTestSuiteForNewFiles(int $numberOfPartitions, $index): void
+    {
+        $template = file_get_contents(__DIR__ . '/../PHPUnit/templates/NewFilesTestSuiteTemplate.php');
+        $template = str_replace(
+            [
+                '{{numberOfPartitions}}',
+                '{{partition}}'
+            ],
+            [
+                $numberOfPartitions,
+                $index
+            ],
+            $template
+        );
+
+        file_put_contents(
+            $this->getAbsolutePath(self::TEST_SUITES_FOLDER . '/' . $this->getFilenameForNewFilesSuite($index)),
+            $template
+        );
     }
 
     private function writeTestSuite(int $index, array $partition): void
@@ -44,6 +69,11 @@ class TestSuiteHandler extends StorageHandler
             $testSuite->appendChild($file);
         }
 
+        // Add custom test suite for new files.
+        $file = $domtree->createElement('file');
+        $file->nodeValue = $this->getFilenameForNewFilesSuite($index);
+        $testSuite->appendChild($file);
+
         $domtree->save(
             $this->getAbsolutePath(
                 self::TEST_SUITES_FOLDER . '/test-suite-' . $index . '.xml'
@@ -53,12 +83,17 @@ class TestSuiteHandler extends StorageHandler
 
     private function deleteOldTestSuites(): void
     {
-        $files = glob($this->getAbsolutePath(self::TEST_SUITES_FOLDER) . '/test-suite-*');
+        $files = glob($this->getAbsolutePath(self::TEST_SUITES_FOLDER) . '/*');
 
         foreach ($files as $file) {
             if (is_file($file)) {
                 unlink($file);
             }
         }
+    }
+
+    private function getFilenameForNewFilesSuite(int $index): string
+    {
+        return 'NewFilesTestSuite' . $index . '.php';
     }
 }
