@@ -19,8 +19,9 @@ class Configuration
 
         $configKey = array_search('--configuration', $argv);
         if ($configKey !== false && isset($argv[$configKey + 1])) {
-            // Return the path to the configuration file
-            return realpath($argv[$configKey + 1]);
+            $configurationFile = realpath($argv[$configKey + 1]);
+
+            return str_replace('phpunit.xml', '', $configurationFile);
         }
 
         return null;
