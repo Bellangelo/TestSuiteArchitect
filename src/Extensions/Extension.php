@@ -44,8 +44,6 @@ abstract class Extension extends TimeReporting
             StorageHandler::getRelativePathBasedOnTests($file),
             microtime(true)
         );
-
-        $this->storeReport();
     }
 
     private function extractFilenameFromClass(string $className): string
@@ -62,5 +60,13 @@ abstract class Extension extends TimeReporting
         }
 
         return $filename;
+    }
+
+    /**
+     * Unfortunately, PHPUnit does not provide a way to know when the suites have stopped running.
+     */
+    public function __destruct()
+    {
+        $this->storeReport();
     }
 }
