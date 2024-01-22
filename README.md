@@ -22,7 +22,7 @@ store each test's execution time.
 # How to partition your tests
 Once you have run your tests, you can partition them by running the following command:
 ```
-testsuitearchitect --partition {number of partitions}
+vendor/bin/testsuitearchitect --partition {number of partitions}
 ```
 This will create and store x number of test suites in the `.test-suite-architect/test-suites` directory.\
 To import the new test suites in your PHPUnit configuration file, you can use the `xi:include` directive.\
