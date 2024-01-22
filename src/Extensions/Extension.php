@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Bellangelo\TestSuiteArchitect\Extensions;
 
+use Bellangelo\TestSuiteArchitect\PHPUnit\Configuration;
 use Bellangelo\TestSuiteArchitect\TimeReporting;
 use PHPUnit\Framework\TestSuite;
 use ReflectionClass;
+use RuntimeException;
 
 abstract class Extension extends TimeReporting
 {
@@ -44,8 +46,15 @@ abstract class Extension extends TimeReporting
 
     private function extractFilenameFromClass(string $className): string
     {
-        $class = new ReflectionClass($className);
+        $workingDirectory = Configuration::getWorkingDirectory();
 
-        return $class->getFileName();
+        $class = new ReflectionClass($className);
+        $filename = $class->getFileName();
+
+        if (strpos($filename, $workingDirectory) === false) {
+            throw new RuntimeException('Test exists in a unexpected directory');
+        }
+
+        return substr($filename, strlen($workingDirectory));
     }
 }
