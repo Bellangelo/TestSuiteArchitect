@@ -41,10 +41,36 @@ abstract class StorageHandler
     {
         $workingDirectory = Configuration::getWorkingDirectory();
 
-        if (strpos($filename, $workingDirectory) === false) {
-            throw new RuntimeException('Test exists in a unexpected directory');
+        return self::getRelativePath($filename, $workingDirectory);
+    }
+
+    private static function getRelativePath(string $from, string $to): string
+    {
+        // Normalize directory separators
+        $from = str_replace('\\', '/', realpath($from));
+        $to = str_replace('\\', '/', realpath($to));
+
+        // Create arrays from paths and filter out empty values
+        $fromParts = array_filter(explode('/', $from), 'strlen');
+        $toParts = array_filter(explode('/', $to), 'strlen');
+
+        // Count of same path parts
+        $samePartsCount = 0;
+        foreach ($fromParts as $i => $part) {
+            if (isset($toParts[$i]) && $toParts[$i] == $part) {
+                $samePartsCount++;
+            } else {
+                break;
+            }
         }
 
-        return substr($filename, strlen($workingDirectory));
+        // Calculate '..' parts to prepend
+        $parentDirs = array_fill(0, count($fromParts) - $samePartsCount, '..');
+
+        // Build relative path
+        $relativePathParts = array_merge($parentDirs, array_slice($toParts, $samePartsCount));
+        $relativePath = implode('/', $relativePathParts);
+
+        return $relativePath;
     }
 }
