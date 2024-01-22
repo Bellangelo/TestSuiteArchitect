@@ -9,10 +9,10 @@ use Bellangelo\TestSuiteArchitect\Storage\StorageHandler;
 use Bellangelo\TestSuiteArchitect\Storage\TimeReportingHandler;
 use Bellangelo\TestSuiteArchitect\ValueObjects\TestTimer;
 use Bellangelo\TestSuiteArchitect\ValueObjects\TestTimerCollection;
-use http\Exception\RuntimeException;
 use PHPUnit\Framework\TestSuite;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
+use RuntimeException;
 
 abstract class NewFilesTestSuite extends TestSuite
 {
