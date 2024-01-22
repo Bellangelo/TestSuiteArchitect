@@ -35,7 +35,7 @@ class TestSuiteHandler extends StorageHandler
 
     private function writeTestSuiteForNewFiles(int $numberOfPartitions, $index): void
     {
-        $template = file_get_contents(__DIR__ . '/../PHPUnit/templates/NewFilesTestSuiteTemplate.php');
+        $template = file_get_contents(__DIR__ . '/../PHPUnit/templates/NewFilesTestSuiteTemplate.txt');
         $template = str_replace(
             [
                 '{{numberOfPartitions}}',
