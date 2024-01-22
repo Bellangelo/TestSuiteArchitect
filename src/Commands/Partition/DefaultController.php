@@ -33,6 +33,9 @@ class DefaultController extends CommandController
         }
     }
 
+    /**
+     * @return array<string>
+     */
     public function required(): array
     {
         return [

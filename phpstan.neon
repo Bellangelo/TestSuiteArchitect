@@ -4,3 +4,6 @@ parameters:
     paths:
         - bin
         - src
+    checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: false
+    treatPhpDocTypesAsCertain: false

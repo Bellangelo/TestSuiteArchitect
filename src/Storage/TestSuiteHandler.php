@@ -33,7 +33,7 @@ class TestSuiteHandler extends StorageHandler
         }
     }
 
-    private function writeTestSuiteForNewFiles(int $numberOfPartitions, $index): void
+    private function writeTestSuiteForNewFiles(int $numberOfPartitions, int $index): void
     {
         $template = file_get_contents(__DIR__ . '/../PHPUnit/templates/NewFilesTestSuiteTemplate.txt');
         $template = str_replace(
@@ -45,7 +45,7 @@ class TestSuiteHandler extends StorageHandler
                 $numberOfPartitions,
                 $index
             ],
-            $template
+            (string) $template
         );
 
         file_put_contents(
@@ -88,6 +88,10 @@ class TestSuiteHandler extends StorageHandler
     private function deleteOldTestSuites(): void
     {
         $files = glob($this->getAbsolutePath(self::TEST_SUITES_FOLDER) . '/*');
+
+        if ($files === false) {
+            return;
+        }
 
         foreach ($files as $file) {
             if (is_file($file)) {

@@ -6,6 +6,7 @@ namespace Bellangelo\TestSuiteArchitect\Extensions;
 
 use Bellangelo\TestSuiteArchitect\Storage\StorageHandler;
 use Bellangelo\TestSuiteArchitect\TimeReporting;
+use Exception;
 use PHPUnit\Framework\TestSuite;
 use ReflectionClass;
 
@@ -49,7 +50,17 @@ abstract class Extension extends TimeReporting
 
     private function extractFilenameFromClass(string $className): string
     {
+        if (!class_exists($className)) {
+            throw new Exception('Class does not exist');
+        }
+
         $class = new ReflectionClass($className);
-        return $class->getFileName();
+        $filename = $class->getFileName();
+
+        if ($filename === false) {
+            throw new Exception('Could not extract the filename from the class');
+        }
+
+        return $filename;
     }
 }

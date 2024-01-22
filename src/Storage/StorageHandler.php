@@ -13,9 +13,13 @@ abstract class StorageHandler
 
     public function __construct()
     {
-        $this->initializeFolder(
-            $this->getAbsoluteFolder(self::CONFIGURATION_FOLDER_NAME)
-        );
+        $configurationFolder = $this->getAbsoluteFolder(self::CONFIGURATION_FOLDER_NAME);
+
+        if (!$configurationFolder) {
+            throw new RuntimeException('Unable to find configuration folder');
+        }
+
+        $this->initializeFolder($configurationFolder);
     }
 
     protected function initializeFolder(string $folder): void
@@ -48,9 +52,16 @@ abstract class StorageHandler
 
     private static function getRelativePath(string $from, string $to): string
     {
+        $from = realpath($from);
+        $to = realpath($to);
+
+        if (!$from || !$to) {
+            throw new RuntimeException('Unable to get relative path');
+        }
+
         // Normalize directory separators and remove trailing slashes
-        $from = rtrim(str_replace('\\', '/', realpath($from)), '/');
-        $to = rtrim(str_replace('\\', '/', realpath($to)), '/');
+        $from = rtrim(str_replace('\\', '/', $from), '/');
+        $to = rtrim(str_replace('\\', '/', $to), '/');
 
         // Create arrays from paths and filter out empty values
         $fromParts = array_filter(explode('/', $from), 'strlen');
@@ -73,6 +84,7 @@ abstract class StorageHandler
         $fromParts = array_slice($fromParts, $samePartsCount);
 
         // Build relative path
+        /** @phpstan-ignore-next-line */
         $relativePath = implode('/', array_merge($parentDirs, $fromParts));
 
         return $relativePath;

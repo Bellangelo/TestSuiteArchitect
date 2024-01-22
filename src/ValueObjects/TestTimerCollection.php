@@ -33,7 +33,9 @@ class TestTimerCollection implements Iterator
 
     public function key(): ?string
     {
-        return key($this->testTimers);
+        $key = key($this->testTimers);
+
+        return is_string($key) ? $key : null;
     }
 
     public function valid(): bool

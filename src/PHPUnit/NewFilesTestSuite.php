@@ -15,6 +15,7 @@ use PHPUnit\Util\FileLoader;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use RuntimeException;
+use SplFileInfo;
 
 abstract class NewFilesTestSuite extends TestSuite
 {
@@ -61,6 +62,9 @@ abstract class NewFilesTestSuite extends TestSuite
         return $newFiles;
     }
 
+    /**
+     * @return array<string>
+     */
     protected static function getTestFiles(): array
     {
         $testsDirectory = Configuration::getTestsDirectory();
@@ -72,6 +76,7 @@ abstract class NewFilesTestSuite extends TestSuite
         $tests = [];
         $iterator = new RecursiveDirectoryIterator($testsDirectory);
 
+        /** @var SplFileInfo $file */
         foreach (new RecursiveIteratorIterator($iterator) as $file) {
             // Check if the file ends with 'Test.php'
             if (substr($file->getFilename(), -8) === 'Test.php') {

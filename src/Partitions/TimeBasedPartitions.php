@@ -22,7 +22,7 @@ class TimeBasedPartitions extends Partitions
         $sums = array_fill(0, $numberOfPartitions, 0.0);
 
         usort($data, function (TestTimer $a, TestTimer $b) {
-            return $b->getElapsedTime() - $a->getElapsedTime();
+            return intval($b->getElapsedTime() - $a->getElapsedTime());
         });
 
         foreach ($data as $item) {
