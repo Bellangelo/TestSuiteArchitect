@@ -41,7 +41,7 @@ abstract class NewFilesTestSuite extends TestSuite
             if (!$filesInReport->get($file)) {
                 $newFiles->add(
                     new TestTimer(
-                        $file->getPathname(),
+                        $file,
                         0
                     )
                 );
