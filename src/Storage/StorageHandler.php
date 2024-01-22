@@ -40,17 +40,15 @@ abstract class StorageHandler
     public static function getRelativePathBasedOnTests(string $filename): string
     {
         $workingDirectory = Configuration::getWorkingDirectory();
-        $path = dirname($filename);
-        $base = basename($filename);
 
-        return self::getRelativePath($path, $workingDirectory) . '/' . $base;
+        return self::getRelativePath($filename, $workingDirectory);
     }
 
     private static function getRelativePath(string $from, string $to): string
     {
-        // Normalize directory separators
-        $from = str_replace('\\', '/', realpath($from));
-        $to = str_replace('\\', '/', realpath($to));
+        // Normalize directory separators and remove trailing slashes
+        $from = rtrim(str_replace('\\', '/', realpath($from)), '/');
+        $to = rtrim(str_replace('\\', '/', realpath($to)), '/');
 
         // Create arrays from paths and filter out empty values
         $fromParts = array_filter(explode('/', $from), 'strlen');
@@ -58,8 +56,8 @@ abstract class StorageHandler
 
         // Count of same path parts
         $samePartsCount = 0;
-        foreach ($fromParts as $i => $part) {
-            if (isset($toParts[$i]) && $toParts[$i] == $part) {
+        foreach ($toParts as $i => $part) {
+            if (isset($fromParts[$i]) && $fromParts[$i] == $part) {
                 $samePartsCount++;
             } else {
                 break;
@@ -67,11 +65,13 @@ abstract class StorageHandler
         }
 
         // Calculate '..' parts to prepend
-        $parentDirs = array_fill(0, count($fromParts) - $samePartsCount, '..');
+        $parentDirs = array_fill(0, count($toParts) - $samePartsCount, '..');
+
+        // Remove the 'from' directory parts that are the same
+        $fromParts = array_slice($fromParts, $samePartsCount);
 
         // Build relative path
-        $relativePathParts = array_merge($parentDirs, array_slice($toParts, $samePartsCount));
-        $relativePath = implode('/', $relativePathParts);
+        $relativePath = implode('/', array_merge($parentDirs, $fromParts));
 
         return $relativePath;
     }
