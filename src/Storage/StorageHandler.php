@@ -40,8 +40,10 @@ abstract class StorageHandler
     public static function getRelativePathBasedOnTests(string $filename): string
     {
         $workingDirectory = Configuration::getWorkingDirectory();
+        $path = dirname($filename);
+        $base = basename($filename);
 
-        return self::getRelativePath($filename, $workingDirectory);
+        return self::getRelativePath($path, $workingDirectory) . '/' . $base;
     }
 
     private static function getRelativePath(string $from, string $to): string
