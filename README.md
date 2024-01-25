@@ -16,8 +16,13 @@ In your phpunit.xml file, add the following lines:
 
 ## Usage
 After you have installed and configured the extension,
-you can run your tests as usual. The extension will automatically
-store each test's execution time.
+you can run your tests as usual.\
+To generate the time report, you need
+to pass the `--time-report` option to the PHPUnit command.
+For example:
+```
+vendor/bin/phpunit --time-report
+```
 
 # How to partition your tests
 Once you have run your tests, you can partition them by running the following command:

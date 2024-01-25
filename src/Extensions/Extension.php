@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bellangelo\TestSuiteArchitect\Extensions;
 
+use Bellangelo\TestSuiteArchitect\PHPUnit\Configuration;
 use Bellangelo\TestSuiteArchitect\Storage\StorageHandler;
 use Bellangelo\TestSuiteArchitect\TimeReporting;
 use Exception;
@@ -13,6 +14,14 @@ use ReflectionClass;
 abstract class Extension extends TimeReporting
 {
     private static int $suitesCounter = 0;
+    private static bool $runTimeReport;
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        self::$runTimeReport = Configuration::shouldRunTimeReport();
+    }
 
     protected function incrementSuitesCounter(): void
     {
@@ -21,7 +30,7 @@ abstract class Extension extends TimeReporting
 
     protected function suiteStarted(TestSuite $suite): void
     {
-        if (!class_exists($suite->getName())) {
+        if (!$this->shouldRunTimeReport() || !class_exists($suite->getName())) {
             return;
         }
 
@@ -34,7 +43,7 @@ abstract class Extension extends TimeReporting
 
     protected function suiteEnded(TestSuite $suite): void
     {
-        if (!class_exists($suite->getName())) {
+        if (!$this->shouldRunTimeReport() || !class_exists($suite->getName())) {
             return;
         }
 
@@ -62,11 +71,18 @@ abstract class Extension extends TimeReporting
         return $filename;
     }
 
+    private function shouldRunTimeReport(): bool
+    {
+        return self::$runTimeReport;
+    }
+
     /**
      * Unfortunately, PHPUnit does not provide a way to know when the suites have stopped running.
      */
     public function __destruct()
     {
-        $this->storeReport();
+        if ($this->shouldRunTimeReport()) {
+            $this->storeReport();
+        }
     }
 }

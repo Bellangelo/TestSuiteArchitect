@@ -8,6 +8,13 @@ use Exception;
 
 class Configuration
 {
+    public static function shouldRunTimeReport(): bool
+    {
+        global $argv;
+
+        return in_array('--time-report', $argv);
+    }
+
     public static function getWorkingDirectory(): string
     {
         $configurationDirectory = self::getPHPUnitConfigurationDirectory();
