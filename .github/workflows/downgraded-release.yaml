@@ -20,8 +20,7 @@ jobs:
             -   uses: "ramsey/composer-install@v2"
 
             # downgrade /src to PHP 7.2
-            -   run: vendor/bin/rector process --config build/rector-downgrade-php-74.php --ansi
-            -   run: vendor/bin/ecs check src bin --fix --ansi
+            -   run: vendor/bin/rector process src bin --config build/rector-downgrade-php-74.php --ansi
 
             # copy PHP 7.2 composer
             -   run: cp build/composer-php-72.json composer.json
