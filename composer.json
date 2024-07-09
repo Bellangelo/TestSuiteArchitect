@@ -7,7 +7,8 @@
     ],
     "scripts": {
         "phpstan": "vendor/bin/phpstan analyse -c phpstan.neon",
-        "phpstan-pr-analysis": "vendor/bin/phpstan analyse vendor/bin/phpstan analyse -c phpstan.neon --error-format=checkstyle | vendor/bin/cs2pr"
+        "phpstan-pr-analysis": "vendor/bin/phpstan analyse vendor/bin/phpstan analyse -c phpstan.neon --error-format=checkstyle | vendor/bin/cs2pr",
+        "docker:shell": "docker run --rm --interactive --tty --volume $PWD:/app composer /bin/sh"
     },
     "require": {
         "php": ">=7.4",
