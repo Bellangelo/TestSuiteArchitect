@@ -31,24 +31,24 @@ abstract class Extension extends TimeReporting
 
     protected function suiteStarted(TestSuite $testSuite): void
     {
-        if (!$this->shouldRunTimeReport() || !class_exists($testSuite->getName())) {
+        if (!$this->shouldRunTimeReport() || !class_exists($testSuite->name())) {
             return;
         }
 
         $this->incrementSuitesCounter();
 
-        $file = $this->extractFilenameFromClass($testSuite->getName());
+        $file = $this->extractFilenameFromClass($testSuite->name());
 
         $this->storeStartTime(StorageHandler::getRelativePathBasedOnTests($file));
     }
 
     protected function suiteEnded(TestSuite $testSuite): void
     {
-        if (!$this->shouldRunTimeReport() || !class_exists($testSuite->getName())) {
+        if (!$this->shouldRunTimeReport() || !class_exists($testSuite->name())) {
             return;
         }
 
-        $file = $this->extractFilenameFromClass($testSuite->getName());
+        $file = $this->extractFilenameFromClass($testSuite->name());
 
         $this->storeEndTime(
             StorageHandler::getRelativePathBasedOnTests($file),

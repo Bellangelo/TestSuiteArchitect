@@ -11,7 +11,6 @@ use Bellangelo\TestSuiteArchitect\ValueObjects\TestTimer;
 use Bellangelo\TestSuiteArchitect\ValueObjects\TestTimerCollection;
 use Exception;
 use PHPUnit\Framework\TestSuite;
-use PHPUnit\Util\FileLoader;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use RuntimeException;
@@ -30,14 +29,10 @@ abstract class NewFilesTestSuite extends TestSuite
         if (isset($partitions[$index])) {
             foreach ($partitions[$index] as $test) {
                 try {
-                    FileLoader::checkAndLoad($test->getName());
+                    $testSuite->addTestFile($test->getName());
                 } catch (Exception $e) {
-                    // This can happen if a given class is not a test suite.
-                    // TODO: Handle better such errors.
                     continue;
                 }
-
-                $testSuite->addTestFile($test->getName());
             }
         }
     }
