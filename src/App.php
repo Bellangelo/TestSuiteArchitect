@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bellangelo\TestSuiteArchitect;
 
 use Bellangelo\TestSuiteArchitect\Adapters\PartitionsAdapter;
+use Bellangelo\TestSuiteArchitect\Commands\Partition\DefaultController;
 use Bellangelo\TestSuiteArchitect\Partitions\TimeBasedPartitions;
 use Minicli\App as MinicliApp;
 use Minicli\Command\CommandCall;
@@ -49,15 +50,6 @@ class App
             './testsuitearchitect'
         );
 
-        $minicliApp = $this->registerCommands($minicliApp);
-
         $this->setApp($minicliApp);
-    }
-
-    private function registerCommands(MinicliApp $minicliApp): MinicliApp
-    {
-        $minicliApp->registerCommand('partition', Commands\Partition\DefaultController::class);
-
-        return $minicliApp;
     }
 }
