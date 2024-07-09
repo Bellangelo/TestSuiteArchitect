@@ -7,13 +7,13 @@ use Rector\Config\RectorConfig;
 return RectorConfig::configure()
     ->withPaths([__DIR__ . '/bin', __DIR__ . '/src'])
     ->withPreparedSets(
-        true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true
+        deadCode: true,
+        codeQuality: true,
+        codingStyle: true,
+        typeDeclarations: true,
+        privatization: true,
+        naming: true,
+        earlyReturn: true
     )
     ->withPhpSets()
     ->withRootFiles()

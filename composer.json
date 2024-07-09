@@ -12,7 +12,7 @@
         "docker:shell": "docker run --rm --interactive --tty --volume $PWD:/app composer /bin/sh"
     },
     "require": {
-        "php": ">=7.4",
+        "php": ">=8.3",
         "minicli/minicli": "^2.2"
 	},
     "autoload": {
@@ -29,6 +29,7 @@
     "require-dev": {
         "phpstan/phpstan": "^1.10",
         "staabm/annotate-pull-request-from-checkstyle": "^1.8",
-        "rector/rector": "^1.0"
+        "rector/rector": "^1.0",
+        "phpunit/phpunit": "^11.2"
     }
 }
