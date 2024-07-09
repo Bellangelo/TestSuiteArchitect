@@ -30,6 +30,6 @@
         "phpstan/phpstan": "^1.10",
         "staabm/annotate-pull-request-from-checkstyle": "^1.8",
         "rector/rector": "^1.0",
-        "phpunit/phpunit": "^11.2"
+        "phpunit/phpunit": "^10.2"
     }
 }
