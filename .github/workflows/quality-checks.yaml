@@ -25,5 +25,7 @@ jobs:
                 php-version: 7.4
                 coverage: none
 
+            - uses: ramsey/composer-install@v2
+
             - name: Run PHP Stan
               run: composer phpstan-pr-analysis
