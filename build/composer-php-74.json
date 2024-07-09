@@ -1,0 +1,24 @@
+{
+    "name": "bellangelo/test-suite-architect",
+    "description": "A PHPUnit extension for auto-scaling PHPUnit tests",
+    "type": "library",
+    "license": "Apache-2.0",
+    "bin": [
+        "bin/testsuitearchitect"
+    ],
+    "require": {
+        "php": "^7.4 || ^8.3",
+        "minicli/minicli": "^2.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Bellangelo\\TestSuiteArchitect\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Aggelos Bellos",
+            "email": "aggelosbellos7@gmail.com"
+        }
+    ]
+}
