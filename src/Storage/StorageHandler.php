@@ -62,8 +62,8 @@ abstract class StorageHandler
         $to = rtrim(str_replace('\\', '/', $to), '/');
 
         // Create arrays from paths and filter out empty values
-        $fromParts = array_filter(explode('/', $from), null);
-        $toParts = array_filter(explode('/', $to), null);
+        $fromParts = array_filter(explode('/', $from));
+        $toParts = array_filter(explode('/', $to));
 
         // Count of same path parts
         $samePartsCount = 0;
