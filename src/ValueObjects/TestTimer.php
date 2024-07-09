@@ -9,7 +9,9 @@ use InvalidArgumentException;
 class TestTimer
 {
     private string $name;
+
     private float $startTime;
+
     private float $endTime;
 
     public function __construct(string $name, float $startTime, float $endTime = 0.0)

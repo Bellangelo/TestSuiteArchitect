@@ -13,7 +13,7 @@ abstract class StorageHandler
 
     public function __construct()
     {
-        $configurationFolder = $this->getAbsoluteFolder(self::CONFIGURATION_FOLDER_NAME);
+        $configurationFolder = static::getAbsoluteFolder(self::CONFIGURATION_FOLDER_NAME);
 
         if (!$configurationFolder) {
             throw new RuntimeException('Unable to find configuration folder');
@@ -24,16 +24,14 @@ abstract class StorageHandler
 
     protected function initializeFolder(string $folder): void
     {
-        if (!file_exists($folder)) {
-            if (!mkdir($folder)) {
-                throw new RuntimeException('Unable to create configuration folder');
-            }
+        if (!file_exists($folder) && !mkdir($folder)) {
+            throw new RuntimeException('Unable to create configuration folder');
         }
     }
 
     protected function getAbsolutePath(string $fileName): string
     {
-        return $this->getAbsoluteFolder(self::CONFIGURATION_FOLDER_NAME) . '/' . $fileName;
+        return static::getAbsoluteFolder(self::CONFIGURATION_FOLDER_NAME) . '/' . $fileName;
     }
 
     public static function getAbsoluteFolder(string $folderName): ?string
@@ -71,7 +69,7 @@ abstract class StorageHandler
         $samePartsCount = 0;
         foreach ($toParts as $i => $part) {
             if (isset($fromParts[$i]) && $fromParts[$i] == $part) {
-                $samePartsCount++;
+                ++$samePartsCount;
             } else {
                 break;
             }

@@ -12,13 +12,13 @@ class ExtensionV9 extends Extension implements TestListener
 {
     use TestListenerDefaultImplementation;
 
-    public function startTestSuite(TestSuite $suite): void
+    public function startTestSuite(TestSuite $testSuite): void
     {
-        $this->suiteStarted($suite);
+        $this->suiteStarted($testSuite);
     }
 
-    public function endTestSuite(TestSuite $suite): void
+    public function endTestSuite(TestSuite $testSuite): void
     {
-        $this->suiteEnded($suite);
+        $this->suiteEnded($testSuite);
     }
 }

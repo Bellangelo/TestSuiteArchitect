@@ -20,12 +20,12 @@ use SplFileInfo;
 abstract class NewFilesTestSuite extends TestSuite
 {
     protected static function addNewTestsForCurrentPartition(
-        TestSuite $suite,
+        TestSuite $testSuite,
         int $numberOfPartitions,
         int $index
     ): void {
-        $newTests = self::getNewTestFiles();
-        $partitions = (new LoadBalancingPartitions($newTests))->createPartitions($numberOfPartitions);
+        $testTimerCollection = self::getNewTestFiles();
+        $partitions = (new LoadBalancingPartitions($testTimerCollection))->createPartitions($numberOfPartitions);
 
         if (isset($partitions[$index])) {
             foreach ($partitions[$index] as $test) {
@@ -37,7 +37,7 @@ abstract class NewFilesTestSuite extends TestSuite
                     continue;
                 }
 
-                $suite->addTestFile($test->getName());
+                $testSuite->addTestFile($test->getName());
             }
         }
     }
@@ -46,20 +46,20 @@ abstract class NewFilesTestSuite extends TestSuite
     {
         $filesInReport = (new TimeReportingHandler())->readReport();
         $testFiles = self::getTestFiles();
-        $newFiles = new TestTimerCollection();
+        $testTimerCollection = new TestTimerCollection();
 
-        foreach ($testFiles as $file) {
-            if (!$filesInReport->get($file)) {
-                $newFiles->add(
+        foreach ($testFiles as $testFile) {
+            if (!$filesInReport->get($testFile) instanceof TestTimer) {
+                $testTimerCollection->add(
                     new TestTimer(
-                        $file,
+                        $testFile,
                         0
                     )
                 );
             }
         }
 
-        return $newFiles;
+        return $testTimerCollection;
     }
 
     /**

@@ -16,13 +16,14 @@ class PartitionsAdapter
         LoadBalancingPartitions::class,
         TimeBasedPartitions::class
     ];
+
     private const DEFAULT_ADAPTER = TimeBasedPartitions::class;
 
     private string $adapterClass;
 
     public function __construct(?string $adapter = null)
     {
-        $adapter = $adapter ?? self::DEFAULT_ADAPTER;
+        $adapter ??= self::DEFAULT_ADAPTER;
 
         if (!in_array($adapter, self::AVAILABLE_ADAPTERS)) {
             throw new InvalidArgumentException('Invalid adapter');
@@ -36,19 +37,14 @@ class PartitionsAdapter
         $this->adapterClass = $adapter;
     }
 
-    private function getAdapterClass(): string
-    {
-        return $this->adapterClass;
-    }
-
-    public function getAdapter(TestTimerCollection $data): Partitions
+    public function getAdapter(TestTimerCollection $testTimerCollection): Partitions
     {
         /** @phpstan-ignore-next-line */
-        return new ($this->getAdapterClass())($data);
+        return new ($this->adapterClass)($testTimerCollection);
     }
 
-    public function createPartitions(TestTimerCollection $data, int $numberOfPartitions): array
+    public function createPartitions(TestTimerCollection $testTimerCollection, int $numberOfPartitions): array
     {
-        return $this->getAdapter($data)->createPartitions($numberOfPartitions);
+        return $this->getAdapter($testTimerCollection)->createPartitions($numberOfPartitions);
     }
 }

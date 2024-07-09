@@ -18,16 +18,14 @@ class TimeBasedPartitions extends Partitions
         $data = $this->getData()->toArray();
 
         // Initialize the parts
-        $parts = array_fill(0, $numberOfPartitions, array());
+        $parts = array_fill(0, $numberOfPartitions, []);
         $sums = array_fill(0, $numberOfPartitions, 0.0);
 
-        usort($data, function (TestTimer $a, TestTimer $b) {
-            return intval($b->getElapsedTime() - $a->getElapsedTime());
-        });
+        usort($data, static fn(TestTimer $a, TestTimer $b): int => (int) ($b->getElapsedTime() - $a->getElapsedTime()));
 
         foreach ($data as $item) {
             // Find the part with the minimum sum
-            $minIndex = array_search(min($sums), $sums);
+            $minIndex = array_search(min($sums), $sums, true);
 
             // Add the current item to the part with the minimum sum
             $parts[$minIndex][] = $item;
@@ -36,8 +34,8 @@ class TimeBasedPartitions extends Partitions
 
         // Redistribute the elements for a more even distribution
         do {
-            $maxIndex = array_search(max($sums), $sums);
-            $minIndex = array_search(min($sums), $sums);
+            $maxIndex = array_search(max($sums), $sums, true);
+            $minIndex = array_search(min($sums), $sums, true);
 
             $redistributed = false;
 

@@ -56,21 +56,21 @@ class TestSuiteHandler extends StorageHandler
 
     private function writeTestSuite(int $index, array $partition): void
     {
-        $domtree = new DOMDocument('1.0', 'UTF-8');
+        $domDocument = new DOMDocument('1.0', 'UTF-8');
 
-        $testSuite = $domtree->createElement('testsuite');
+        $testSuite = $domDocument->createElement('testsuite');
         $testSuite->setAttribute('name', 'test-suite-' . $index);
-        $testSuite = $domtree->appendChild($testSuite);
+        $testSuite = $domDocument->appendChild($testSuite);
 
         /** @var TestTimer $test */
         foreach ($partition as $test) {
-            $file = $domtree->createElement('file');
+            $file = $domDocument->createElement('file');
             $file->nodeValue = $test->getName();
             $testSuite->appendChild($file);
         }
 
         // Add custom test suite for new files.
-        $file = $domtree->createElement('file');
+        $file = $domDocument->createElement('file');
         $file->nodeValue = StorageHandler::getRelativePathBasedOnTests(
             $this->getAbsolutePath(
                 self::TEST_SUITES_FOLDER . '/' . $this->getFilenameForNewFilesSuite($index)
@@ -78,7 +78,7 @@ class TestSuiteHandler extends StorageHandler
         );
         $testSuite->appendChild($file);
 
-        $domtree->save(
+        $domDocument->save(
             $this->getAbsolutePath(
                 self::TEST_SUITES_FOLDER . '/test-suite-' . $index . '.xml'
             )

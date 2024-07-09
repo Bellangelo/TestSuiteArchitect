@@ -25,7 +25,7 @@ class TimeReporting
 
     public function storeEndTime(string $test, float $time): void
     {
-        $testTimer = $this->getTestTimerCollection()->get($test);
+        $testTimer = $this->testTimerCollection->get($test);
 
         if (is_null($testTimer)) {
             throw new RuntimeException('Test timer not found');
@@ -36,17 +36,12 @@ class TimeReporting
 
     public function storeReport(): void
     {
-        (new TimeReportingHandler())->writeReport($this->getTestTimerCollection());
-    }
-
-    private function getTestTimerCollection(): TestTimerCollection
-    {
-        return $this->testTimerCollection;
+        (new TimeReportingHandler())->writeReport($this->testTimerCollection);
     }
 
     private function storeTest(string $test): void
     {
-        $this->getTestTimerCollection()->add(
+        $this->testTimerCollection->add(
             new TestTimer(
                 $test,
                 microtime(true)

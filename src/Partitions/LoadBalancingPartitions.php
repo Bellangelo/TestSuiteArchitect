@@ -20,7 +20,7 @@ class LoadBalancingPartitions extends Partitions
 
         $startIndex = 0;
 
-        for ($i = 0; $i < $numberOfPartitions; $i++) {
+        for ($i = 0; $i < $numberOfPartitions; ++$i) {
             // Calculate the size of the current part
             $partSize = $basePartSize + ($i < $extraElements ? 1 : 0);
 

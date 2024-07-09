@@ -13,16 +13,16 @@ class App
 {
     private static string $partitionAdapterClass = TimeBasedPartitions::class;
 
-    private MinicliApp $app;
+    private MinicliApp $minicliApp;
 
     public function __construct()
     {
         $this->initApp();
     }
 
-    public function runCommand(CommandCall $input): void
+    public function runCommand(CommandCall $commandCall): void
     {
-        $this->getApp()->runCommand($input->getRawArgs());
+        $this->minicliApp->runCommand($commandCall->getRawArgs());
     }
 
     public static function getPartitionAdapter(): PartitionsAdapter
@@ -35,25 +35,20 @@ class App
         return self::$partitionAdapterClass;
     }
 
-    private function setApp(MinicliApp $app): void
+    private function setApp(MinicliApp $minicliApp): void
     {
-        $this->app = $app;
-    }
-
-    private function getApp(): MinicliApp
-    {
-        return $this->app;
+        $this->minicliApp = $minicliApp;
     }
 
     private function initApp(): void
     {
-        $app = new MinicliApp(
+        $minicliApp = new MinicliApp(
             [
                 'app_path' => __DIR__ . '/Commands/',
             ],
             './testsuitearchitect'
         );
 
-        $this->setApp($app);
+        $this->setApp($minicliApp);
     }
 }

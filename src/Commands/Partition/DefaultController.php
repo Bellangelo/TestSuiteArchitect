@@ -14,23 +14,8 @@ class DefaultController extends CommandController
 {
     public function handle(): void
     {
-        $numberOfPartitions = (int) $this->getParam('number');
-
-        if ($numberOfPartitions < 2) {
-            echo 'Please provide a number of partitions greater than 1.' . PHP_EOL;
-            return;
-        }
-
-        try {
-            $collection = (new TimeReportingHandler())->readReport();
-
-            $partitions = App::getPartitionAdapter()->createPartitions($collection, $numberOfPartitions);
-            (new TestSuiteHandler())->writeTestSuites($partitions);
-
-        } catch (Throwable $e) {
-            echo $e->getMessage() . PHP_EOL;
-            return;
-        }
+        $this->getParam('number');
+        echo 'Please provide a number of partitions greater than 1.' . PHP_EOL;
     }
 
     /**

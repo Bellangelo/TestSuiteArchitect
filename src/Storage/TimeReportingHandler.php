@@ -12,7 +12,7 @@ class TimeReportingHandler extends StorageHandler
 {
     private const FILE_NAME = 'time-reporting.csv';
 
-    public function writeReport(TestTimerCollection $collection): void
+    public function writeReport(TestTimerCollection $testTimerCollection): void
     {
         $file = fopen($this->getAbsolutePath(self::FILE_NAME), 'w');
 
@@ -20,7 +20,7 @@ class TimeReportingHandler extends StorageHandler
             throw new RuntimeException('Unable to write report');
         }
 
-        foreach ($collection as $testTimer) {
+        foreach ($testTimerCollection as $testTimer) {
             fputcsv($file, $testTimer->toCsvArray());
         }
 
@@ -35,14 +35,14 @@ class TimeReportingHandler extends StorageHandler
             throw new RuntimeException('Please generate a report first.');
         }
 
-        $collection = new TestTimerCollection();
+        $testTimerCollection = new TestTimerCollection();
 
         while (($line = fgetcsv($file)) !== false) {
             if (!isset($line[0], $line[1], $line[2])) {
                 throw new RuntimeException('Invalid report file.');
             }
 
-            $collection->add(
+            $testTimerCollection->add(
                 new TestTimer(
                     $line[0],
                     (float) $line[1],
@@ -53,6 +53,6 @@ class TimeReportingHandler extends StorageHandler
 
         fclose($file);
 
-        return $collection;
+        return $testTimerCollection;
     }
 }

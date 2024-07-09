@@ -14,6 +14,7 @@ use ReflectionClass;
 abstract class Extension extends TimeReporting
 {
     private static int $suitesCounter = 0;
+
     private static bool $runTimeReport;
 
     public function __construct()
@@ -25,29 +26,29 @@ abstract class Extension extends TimeReporting
 
     protected function incrementSuitesCounter(): void
     {
-        self::$suitesCounter++;
+        ++self::$suitesCounter;
     }
 
-    protected function suiteStarted(TestSuite $suite): void
+    protected function suiteStarted(TestSuite $testSuite): void
     {
-        if (!$this->shouldRunTimeReport() || !class_exists($suite->getName())) {
+        if (!$this->shouldRunTimeReport() || !class_exists($testSuite->getName())) {
             return;
         }
 
         $this->incrementSuitesCounter();
 
-        $file = $this->extractFilenameFromClass($suite->getName());
+        $file = $this->extractFilenameFromClass($testSuite->getName());
 
         $this->storeStartTime(StorageHandler::getRelativePathBasedOnTests($file));
     }
 
-    protected function suiteEnded(TestSuite $suite): void
+    protected function suiteEnded(TestSuite $testSuite): void
     {
-        if (!$this->shouldRunTimeReport() || !class_exists($suite->getName())) {
+        if (!$this->shouldRunTimeReport() || !class_exists($testSuite->getName())) {
             return;
         }
 
-        $file = $this->extractFilenameFromClass($suite->getName());
+        $file = $this->extractFilenameFromClass($testSuite->getName());
 
         $this->storeEndTime(
             StorageHandler::getRelativePathBasedOnTests($file),
@@ -61,8 +62,8 @@ abstract class Extension extends TimeReporting
             throw new Exception('Class does not exist');
         }
 
-        $class = new ReflectionClass($className);
-        $filename = $class->getFileName();
+        $reflectionClass = new ReflectionClass($className);
+        $filename = $reflectionClass->getFileName();
 
         if ($filename === false) {
             throw new Exception('Could not extract the filename from the class');

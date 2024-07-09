@@ -39,7 +39,7 @@ class Configuration
     {
         global $argv;
 
-        $configKey = array_search('--configuration', $argv);
+        $configKey = array_search('--configuration', $argv, true);
         if ($configKey !== false && isset($argv[$configKey + 1])) {
             $configurationFile = realpath($argv[$configKey + 1]);
 
