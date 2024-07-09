@@ -1,0 +1,26 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Call to method testSuite\\(\\) on an unknown class PHPUnit\\\\Event\\\\TestSuite\\\\Started\\.$#"
+			count: 2
+			path: src/Extensions/ExtensionV10.php
+
+		-
+			message: "#^Class PHPUnit\\\\Event\\\\TestSuite\\\\Finished not found\\.$#"
+			count: 1
+			path: src/Extensions/ExtensionV10.php
+
+		-
+			message: "#^Class PHPUnit\\\\Event\\\\TestSuite\\\\Started not found\\.$#"
+			count: 1
+			path: src/Extensions/ExtensionV10.php
+
+		-
+			message: "#^Parameter \\$event of method Bellangelo\\\\TestSuiteArchitect\\\\Extensions\\\\ExtensionV10\\:\\:onTestSuiteFinished\\(\\) has invalid type PHPUnit\\\\Event\\\\TestSuite\\\\Started\\.$#"
+			count: 1
+			path: src/Extensions/ExtensionV10.php
+
+		-
+			message: "#^Parameter \\$event of method Bellangelo\\\\TestSuiteArchitect\\\\Extensions\\\\ExtensionV10\\:\\:onTestSuiteStarted\\(\\) has invalid type PHPUnit\\\\Event\\\\TestSuite\\\\Started\\.$#"
+			count: 1
+			path: src/Extensions/ExtensionV10.php
