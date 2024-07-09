@@ -37,7 +37,7 @@ Example:
 ```xml
 <phpunit xmlns:xi="http://www.w3.org/2001/XInclude">
     <listeners>
-        <listener class="Bellangelo\TestSuiteArchitect\Extensions\ExtensionV9" />
+        <listener class="Bellangelo\TestSuiteArchitect\Extensions\ExtensionLoader" />
     </listeners>
     <testsuites>
         <xi:include href=".test-suite-architect/test-suites/test-suite-1.xml" />

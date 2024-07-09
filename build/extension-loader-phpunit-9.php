@@ -14,11 +14,11 @@ class ExtensionLoader extends Extension implements TestListener
 
     public function startTestSuite(TestSuite $testSuite): void
     {
-        $this->suiteStarted($testSuite);
+        $this->suiteStarted($testSuite->getName());
     }
 
     public function endTestSuite(TestSuite $testSuite): void
     {
-        $this->suiteEnded($testSuite);
+        $this->suiteEnded($testSuite->getName());
     }
 }
