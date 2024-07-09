@@ -1,5 +1,7 @@
 # TestSuiteArchitect
-Welcome to Test Suite Architect, a powerful extension for PHPUnit designed to optimize your testing process. This innovative tool offers a smart solution for partitioning and evenly distributing your tests, ensuring a more efficient and time-effective testing cycle.
+Welcome to Test Suite Architect, a powerful extension for PHPUnit designed to optimize your testing process.
+This innovative tool offers a smart solution for partitioning and evenly distributing your tests, ensuring
+a more efficient and time-effective testing cycle.
 
 ## Installation
 ```
