@@ -49,6 +49,15 @@ class App
             './testsuitearchitect'
         );
 
+        $minicliApp = $this->registerCommands($minicliApp);
+
         $this->setApp($minicliApp);
+    }
+
+    private function registerCommands(MinicliApp $minicliApp): MinicliApp
+    {
+        $minicliApp->registerCommand('partition', Commands\Partition\DefaultController::class);
+
+        return $minicliApp;
     }
 }
