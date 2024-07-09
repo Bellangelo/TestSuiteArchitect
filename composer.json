@@ -6,15 +6,10 @@
     "bin": [
         "bin/testsuitearchitect"
     ],
-    "scripts": {
-        "phpstan": "vendor/bin/phpstan analyse -c phpstan.neon",
-        "phpstan-pr-analysis": "vendor/bin/phpstan analyse -c phpstan.neon --error-format=checkstyle | vendor/bin/cs2pr",
-        "docker:shell": "docker run --rm --interactive --tty --volume $PWD:/app composer /bin/sh"
-    },
     "require": {
-        "php": ">=8.3",
+        "php": "^7.4 || ^8.3",
         "minicli/minicli": "^2.2"
-	},
+    },
     "autoload": {
         "psr-4": {
             "Bellangelo\\TestSuiteArchitect\\": "src/"
@@ -25,11 +20,5 @@
             "name": "Aggelos Bellos",
             "email": "aggelosbellos7@gmail.com"
         }
-    ],
-    "require-dev": {
-        "phpstan/phpstan": "^1.10",
-        "staabm/annotate-pull-request-from-checkstyle": "^1.8",
-        "rector/rector": "^1.0",
-        "phpunit/phpunit": "^10.2"
-    }
+    ]
 }
