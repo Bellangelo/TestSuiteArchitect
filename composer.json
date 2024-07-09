@@ -2,6 +2,7 @@
     "name": "bellangelo/test-suite-architect",
     "description": "A PHPUnit extension for auto-generating test suites",
     "type": "library",
+    "license": "Apache-2.0",
     "bin": [
         "bin/testsuitearchitect"
     ],
