@@ -24,6 +24,8 @@ jobs:
 
             # copy PHP 7.2 composer
             -   run: cp build/composer-php-74.json composer.json
+            # copy PHPUnit v9 extension loader
+            -   run: cp build/extension-loader-phpunit-9.php src/Extensions/ExtensionLoader.php
 
             # clear the dev files
             -   run: rm -rf build .github phpstan.neon
