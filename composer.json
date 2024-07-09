@@ -6,7 +6,8 @@
         "bin/testsuitearchitect"
     ],
     "scripts": {
-        "phpstan": "vendor/bin/phpstan analyse -c phpstan.neon"
+        "phpstan": "vendor/bin/phpstan analyse -c phpstan.neon",
+        "phpstan-pr-analysis": "vendor/bin/phpstan analyse vendor/bin/phpstan analyse -c rest-api/phpstan.neon --error-format=checkstyle | vendor/bin/cs2pr"
     },
     "require": {
         "php": ">=7.4",
