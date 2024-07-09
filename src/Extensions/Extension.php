@@ -8,7 +8,6 @@ use Bellangelo\TestSuiteArchitect\PHPUnit\Configuration;
 use Bellangelo\TestSuiteArchitect\Storage\StorageHandler;
 use Bellangelo\TestSuiteArchitect\TimeReporting;
 use Exception;
-use PHPUnit\Framework\TestSuite;
 use ReflectionClass;
 
 abstract class Extension extends TimeReporting
@@ -20,6 +19,8 @@ abstract class Extension extends TimeReporting
     public function __construct()
     {
         parent::__construct();
+
+        $this->loadDependencies();
 
         self::$runTimeReport = Configuration::shouldRunTimeReport();
     }
@@ -75,6 +76,11 @@ abstract class Extension extends TimeReporting
     private function shouldRunTimeReport(): bool
     {
         return self::$runTimeReport;
+    }
+
+    private function loadDependencies(): void
+    {
+        require_once __DIR__ . '/../../vendor/autoload.php';
     }
 
     /**

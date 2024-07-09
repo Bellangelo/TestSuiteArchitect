@@ -2,32 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Bellangelo\TestSuiteArchitect\Extensions;
+require_once __DIR__ . '/../../vendor/autoload.php';
 
-use PHPUnit\Event\Facade;
-use PHPUnit\Event\Subscriber;
-use PHPUnit\Event\TestSuite\Started;
-use PHPUnit\Event\TestSuite\Finished;
-
-class ExtensionLoader extends Extension implements Subscriber
-{
-    public function __construct()
-    {
-        parent::__construct();
-
-        Facade::instance()->registerSubscriber($this);
-    }
-
-    public function subscribesTo(): array
-    {
-        return [
-            Started::class => 'onTestSuiteStarted',
-            Finished::class => 'onTestSuiteFinished',
-        ];
-    }
-
-    public function onTestSuiteStarted(Started $event): void
-    {
-        $this->suiteStarted($event->testSuite()->name());
-    }
+if (class_exists('PHPUnit\\Event\\Subscriber')) {
+    // PHPUnit 10 or PHPUnit 11
+    (new Bellangelo\TestSuiteArchitect\Extensions\ExtensionV10());
+} else if(class_exists('PHPUnit\\Framework\\TestListener')) {
+    // PHPUnit 9
+    (new Bellangelo\TestSuiteArchitect\Extensions\ExtensionV9());
+} else {
+    throw new RuntimeException('Unsupported PHPUnit version');
 }

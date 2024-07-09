@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestListener;
 use PHPUnit\Framework\TestListenerDefaultImplementation;
 use PHPUnit\Framework\TestSuite;
 
-class ExtensionLoader extends Extension implements TestListener
+class ExtensionV9 extends Extension implements TestListener
 {
     use TestListenerDefaultImplementation;
 

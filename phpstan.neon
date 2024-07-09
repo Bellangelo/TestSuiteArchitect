@@ -1,9 +1,14 @@
+includes:
+    - phpstan-baseline.neon
+
 parameters:
     phpVersion: 70400
     level: 9
     paths:
         - bin
         - src
+    excludePaths:
+        - src/Extensions/ExtensionV9.php
     checkMissingIterableValueType: false
     checkGenericClassInNonGenericObjectType: false
     treatPhpDocTypesAsCertain: false
