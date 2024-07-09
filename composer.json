@@ -12,7 +12,6 @@
     },
     "require": {
         "php": ">=7.4",
-		"phpunit/phpunit": "^9.6.0",
         "minicli/minicli": "^2.2"
 	},
     "autoload": {
